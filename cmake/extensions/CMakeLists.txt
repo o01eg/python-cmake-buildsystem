@@ -142,8 +142,10 @@ if(PY_VERSION VERSION_EQUAL "3.6" OR PY_VERSION VERSION_GREATER "3.6")
 endif()
 
 # UNIX-only extensions
-add_python_extension(fcntl REQUIRES UNIX SOURCES fcntlmodule.c)
-add_python_extension(grp REQUIRES UNIX SOURCES grpmodule.c)
+if(NOT CMAKE_SYSTEM MATCHES Android)
+    add_python_extension(fcntl REQUIRES UNIX SOURCES fcntlmodule.c)
+    add_python_extension(grp REQUIRES UNIX SOURCES grpmodule.c)
+endif()
 
 set(nis_REQUIRES UNIX HAVE_LIBNSL)
 set(nis_LIBRARIES ${HAVE_LIBNSL})
